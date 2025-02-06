@@ -1,6 +1,5 @@
 import {  useRef, useEffect, useState } from "react";
 import { Rnd } from "react-rnd";
-import Image from "next/image";
 import UploadPopup from "./UploadPopup";
 import GuideLines from "./GuideLines";
 
@@ -43,12 +42,12 @@ export default function Grid({
       const imgUrl = URL.createObjectURL(file);
       updateFramePosition(
         frameId,
-        undefined,  // x remains unchanged
-        undefined,  // y remains unchanged
-        undefined,  // width remains unchanged
-        undefined,  // height remains unchanged
-        imgUrl,      // imageUrl
-        file.name    // fileName
+        undefined, 
+        undefined, 
+        undefined, 
+        undefined,
+        imgUrl,   
+        file.name 
       );
     }
     setUploadingFrame(null);

@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import config from "../../../next.config.mjs";
 
 export default function ResetButton({ setFrames }) {
   return (
@@ -10,7 +11,7 @@ export default function ResetButton({ setFrames }) {
       title="Reset Canvas"
     >
       <Image
-      src="/reset.svg"
+      src={`${config.basePath}/reset.svg`}
       width={20}
       height={20}
       alt="Reset"

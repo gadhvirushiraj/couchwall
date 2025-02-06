@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import config from "../../../next.config.mjs"
 
 export default function DeviceWarning() {
   const [warningType, setWarningType] = useState(null);
@@ -37,7 +38,7 @@ export default function DeviceWarning() {
           </p>
           <div className="mt-10 flex justify-center">
             <Image
-              src="/couch_wall_logo.svg"
+              src={`${config.basePath}/couch_wall_logo.svg`}
               width={100}
               height={50}
               alt="Logo"
@@ -58,7 +59,7 @@ export default function DeviceWarning() {
           </p>
           <div className="mt-10 flex justify-center">
             <Image
-              src="/rotate.svg"
+              src={`${config.basePath}/rotate.svg`}
               width={100}
               height={100}
               alt="Rotate Icon"

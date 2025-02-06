@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
+import config from "../../../next.config.mjs"
 
 export default function HelpButton() {
   const [showHelp, setShowHelp] = useState(false);
@@ -21,7 +22,7 @@ export default function HelpButton() {
         title="Show Help"
       >
         <Image
-          src="/help.svg"
+          src={`${config.basePath}/help.svg`}
           width={20}
           height={20}
           alt="Help"

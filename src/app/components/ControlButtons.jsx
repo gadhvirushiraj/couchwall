@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { downloadGridLayout } from '../utils/downloader';
+import config from "../../../next.config.mjs";
 
 export default function ControlButtons({ addFrame }) {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -25,7 +26,7 @@ export default function ControlButtons({ addFrame }) {
         style={{ top: "2rem", left: "2rem" }}
       >
         <Image
-          src="/arrow.svg"
+          src={`${config.basePath}/arrow.svg`}
           width={20}
           height={20}
           alt={isExpanded ? "Close" : "Expand"}
@@ -67,7 +68,7 @@ export default function ControlButtons({ addFrame }) {
               color: "black",
             }}
           >
-            <Image src="/coffee.svg" width={20} height={20} alt="coffee" />
+            <Image src={`${config.basePath}/coffee.svg`} width={20} height={20} alt="coffee" />
             Buy me a coffee
           </button>
         </div>

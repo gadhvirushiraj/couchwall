@@ -6,6 +6,7 @@ import Grid from "./components/Grid";
 import ResetButton from "./components/ResetButton";
 import HelpButton from "./components/HelpButton";
 import DeviceWarning from "./components/DeviceWarning";
+import config from "../../next.config.mjs";
 
 export default function Home() {
   const [frames, setFrames] = useState([]);
@@ -17,7 +18,7 @@ export default function Home() {
   useEffect(() => {
     const loadInitialPreset = async () => {
       try {
-        const response = await fetch("/presets/preset1.json");
+        const response = await fetch(`${config.basePath}/presets/preset1.json`);
         if (!response.ok) throw new Error("Failed to load preset");
 
         const presetData = await response.json();
@@ -28,7 +29,7 @@ export default function Home() {
           width: frame.width,
           height: frame.height,
           fileName: frame.fileName,
-          imageUrl: `/presets/preset1/${frame.fileName}`,
+          imageUrl: `${config.basePath}/presets/preset1/${frame.fileName}`,
         }));
 
         setFrames(presetFrames);
@@ -129,7 +130,7 @@ export default function Home() {
                 >
                   Explore Now
                   <Image
-                    src="/public/arrow.svg"
+                    src={`${config.basePath}/arrow.svg`}
                     width={20}
                     height={20}
                     alt="Arrow"
@@ -140,10 +141,10 @@ export default function Home() {
               <div className="pb-12 px-8">
                 <div className="mt-4 flex justify-center">
                   <Image
-                    src="/public/couch_wall_logo.svg"
+                    src={`${config.basePath}/couch_wall_logo.svg`}
                     width={100}
                     height={50}
-                    alt="Arrow"
+                    alt="CouchWallLogo"
                   />
                 </div>
               </div>
@@ -154,7 +155,7 @@ export default function Home() {
               <div className="relative h-full">
                 <div className="absolute bottom-0 w-full h-[40vh] z-0">
                   <img
-                    src="/public/couch.svg"
+                    src={`${config.basePath}/couch.svg`}
                     alt="Couch"
                     draggable="false"
                     style={{
@@ -190,7 +191,7 @@ export default function Home() {
             </div>
             <div className="absolute bottom-0 w-full h-[40vh] z-0">
               <img
-                src="/public/couch.svg"
+                src={`${config.basePath}/couch.svg`}
                 alt="Couch"
                 draggable="false"
                 style={{

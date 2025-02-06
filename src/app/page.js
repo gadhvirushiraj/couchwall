@@ -129,7 +129,7 @@ export default function Home() {
                 >
                   Explore Now
                   <Image
-                    src="/arrow.svg"
+                    src="/public/arrow.svg"
                     width={20}
                     height={20}
                     alt="Arrow"
@@ -140,7 +140,7 @@ export default function Home() {
               <div className="pb-12 px-8">
                 <div className="mt-4 flex justify-center">
                   <Image
-                    src="/couch_wall_logo.svg"
+                    src="/public/couch_wall_logo.svg"
                     width={100}
                     height={50}
                     alt="Arrow"
@@ -154,7 +154,7 @@ export default function Home() {
               <div className="relative h-full">
                 <div className="absolute bottom-0 w-full h-[40vh] z-0">
                   <img
-                    src="/couch.svg"
+                    src="/public/couch.svg"
                     alt="Couch"
                     draggable="false"
                     style={{
@@ -190,7 +190,7 @@ export default function Home() {
             </div>
             <div className="absolute bottom-0 w-full h-[40vh] z-0">
               <img
-                src="/couch.svg"
+                src="/public/couch.svg"
                 alt="Couch"
                 draggable="false"
                 style={{

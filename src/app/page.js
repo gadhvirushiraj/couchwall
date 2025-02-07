@@ -120,13 +120,19 @@ export default function Home() {
         {showBanner ? (
           <div className="flex h-screen">
             {/* Left Banner */}
-            <div className="w-1/5 ml-8 bg-accent flex flex-col justify-between">
+            <div className="w-[24vw] ml-8 bg-accent flex flex-col justify-between">
               <div className="pt-20 px-8">
-                <h1 className="text-4xl font-bold mb-2">Imagine your Wall,</h1>
-                <h2 className="text-4xl font-bold">Create your Story</h2>
+                <h1 className="text-3xl leading-[1.4] font-black mb-2">
+                  Design Your Perfect Wall, Effortlessly!
+                </h1>
+                <p className="text-lg mt-2">
+                  Couchwall is an intutive drag-and-drop tool for designing
+                  perfect art placements. Visualize, create, and style with
+                  confidence before you hang!
+                </p>
                 <button
                   onClick={() => setShowBanner(false)}
-                  className="bg-black text-white text-xl my-24 px-6 py-2 flex items-center gap-2"
+                  className="bg-black text-white text-xl mt-20 px-6 py-2 flex items-center gap-2"
                 >
                   Explore Now
                   <Image

@@ -1,62 +1,41 @@
 export default function GuideLines({ frame, centerOffset }) {
     
-    if (!frame || !centerOffset) return null;
+  if (!frame || !centerOffset) return null;
 
-    const left = frame.x + centerOffset.x;
-    const top = frame.y + centerOffset.y;
-    const right = left + frame.width;
-    const bottom = top + frame.height;
+  const borderWidth = 3
+  const guideWidth = 2
 
-    return (
-      <>
-        <div // Left line
-          style={{
-            position: "absolute",
-            left: left - 1,
-            top: 0,
-            width: 1,
-            height: "100%",
-            backgroundColor: "orange",
-            zIndex: 20,
-            pointerEvents: "none",
-          }}
-        />
-        <div // Right line
-          style={{
-            position: "absolute",
-            left: right - 1,
-            top: 0,
-            width: 1,
-            height: "100%",
-            backgroundColor: "orange",
-            zIndex: 20,
-            pointerEvents: "none",
-          }}
-        />
-        <div // Top line
-          style={{
-            position: "absolute",
-            left: 0,
-            top: top - 1,
-            width: "100%",
-            height: 1,
-            backgroundColor: "orange",
-            zIndex: 20,
-            pointerEvents: "none",
-          }}
-        />
-        <div // Bottom line
-          style={{
-            position: "absolute",
-            left: 0,
-            top: bottom - 1,
-            width: "100%",
-            height: 1,
-            backgroundColor: "orange",
-            zIndex: 20,
-            pointerEvents: "none",
-          }}
-        />
-      </>
-    );
-  };
+  const left = frame.x + centerOffset.x - borderWidth;
+  const top = frame.y + centerOffset.y - borderWidth;
+  const right = left + frame.width + 2*borderWidth + guideWidth;
+  const bottom = top + frame.height + 2*borderWidth + guideWidth;
+
+  return (
+    <>
+      <div // Left line
+        className={`guide-line left-0 top-0 w-[${guideWidth}px] h-full`}
+        style={{
+          left: left - 1,
+        }}
+      />
+      <div // Right line
+        className={`guide-line left-0 top-0 w-[${guideWidth}px] h-full`}
+        style={{
+          left: right - 1,
+        }}
+      />
+      <div // Top line
+        className={`guide-line top-0 left-0 w-full h-[${guideWidth}px]`}
+        style={{
+          top: top - 1,
+        }}
+      />
+      <div // Bottom line
+        className={`guide-line top-0 left-0 w-full h-[${guideWidth}px]`}
+        style={{
+          top: bottom - 1,
+        }}
+      />
+    </>
+  );
+}

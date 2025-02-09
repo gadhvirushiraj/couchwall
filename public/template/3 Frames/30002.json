@@ -1,0 +1,25 @@
+{
+  "frames": [
+    {
+      "x": -140,
+      "y": -70,
+      "width": 140,
+      "height": 210,
+      "fileName": null
+    },
+    {
+      "x": 10,
+      "y": -70,
+      "width": 120,
+      "height": 80,
+      "fileName": null
+    },
+    {
+      "x": 10,
+      "y": 20,
+      "width": 120,
+      "height": 120,
+      "fileName": null
+    }
+  ]
+}

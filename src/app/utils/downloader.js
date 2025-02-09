@@ -3,11 +3,13 @@ import domtoimage from "dom-to-image";
 export const downloadGridLayout = async () => {
   const element = document.getElementById("grid-container");
 
-  try {
-    // Print the height and width of the element
-    console.log("Element Width:", element.offsetWidth);
-    console.log("Element Height:", element.offsetHeight);
+  // Check if grid container exists and has content
+  if (!element) {
+    alert("Nothing to download! Please add items to the grid first.");
+    return;
+  }
 
+  try {
     const dataUrl = await domtoimage.toPng(element, {
       quality: 1.0,
       bgcolor: "#ffffff",

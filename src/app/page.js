@@ -6,13 +6,35 @@ import Grid from "./components/Grid";
 import ResetButton from "./components/ResetButton";
 import HelpButton from "./components/HelpButton";
 import DeviceWarning from "./components/DeviceWarning";
+import SelectTemplate from "./components/SelectTemplate";
 import config from "../../next.config.mjs";
+import { setupKeyboardShortcuts } from "./utils/shortcuts";
 
 export default function Home() {
   const [frames, setFrames] = useState([]);
   const [selectedFrameId, setSelectedFrameId] = useState(null);
   const [showBanner, setShowBanner] = useState(true);
-  const [isSmallScreen, setIsSmallScreen] = useState(false);
+  const [showEditor, setShowEditor] = useState(false);
+  const [receivedTemplate, setReceivedTemplate] = useState(null);
+  const [copiedFrame, setCopiedFrame] = useState(null);
+
+  const handleTemplateSelect = (templateData) => {
+    setReceivedTemplate(templateData);
+    setShowEditor(true);
+
+    const presetData = templateData;
+    const presetFrames = presetData.frames.map((frame, index) => ({
+      id: Date.now() + index,
+      x: frame.x,
+      y: frame.y,
+      width: frame.width,
+      height: frame.height,
+      fileName: null,
+      imageUrl: null,
+    }));
+
+    setFrames(presetFrames);
+  };
 
   // Load preset on component mount
   useEffect(() => {
@@ -56,28 +78,24 @@ export default function Home() {
   };
 
   useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.key === "Backspace" && selectedFrameId !== null) {
-        setFrames((prev) =>
-          prev.filter((frame) => frame.id !== selectedFrameId)
-        );
-        setSelectedFrameId(null);
-      }
-      if ((e.ctrlKey || e.metaKey) && e.key === "j") {
-        e.preventDefault();
-        extractLayout();
-      }
-    };
+    const cleanup = setupKeyboardShortcuts({
+      selectedFrameId,
+      frames,
+      copiedFrame,
+      setFrames,
+      setSelectedFrameId,
+      setCopiedFrame,
+      extractLayout,
+    });
 
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [selectedFrameId, frames]);
+    return cleanup;
+  }, [selectedFrameId, frames, copiedFrame]);
 
   const addFrame = () => {
     const defaultWidth = 100;
     const defaultHeight = 150;
-    const centerX = 0;
-    const centerY = 0;
+    const centerX = -50;
+    const centerY = -75;
 
     setFrames((prev) => [
       ...prev,
@@ -192,7 +210,7 @@ export default function Home() {
               <ControlButtons addFrame={addFrame} />
             </div>
             <div className="absolute top-4 right-4">
-              <ResetButton setFrames={setFrames} />
+              <ResetButton setShowEditor={setShowEditor} />
               <HelpButton />
             </div>
             <div className="absolute bottom-0 w-full h-[40vh] z-0">
@@ -211,16 +229,40 @@ export default function Home() {
                 }}
               />
             </div>
-            <div
-              id="grid-container"
-              className="relative h-[60vh] w-full overflow-hidden z-1"
-            >
-              <Grid
-                frames={frames}
-                updateFramePosition={updateFramePosition}
-                setSelectedFrameId={setSelectedFrameId}
-              />
-            </div>
+            {!showEditor && (
+              <div className="absolute h-[60vh] w-full overflow-hidden flex flex-col items-center justify-center gap-4 z-1">
+                <SelectTemplate onTemplateSelect={handleTemplateSelect} />
+                <button
+                  onClick={() => {
+                    setShowEditor(true);
+                    setFrames([]);
+                    addFrame();
+                  }}
+                  className="grid-button flex items-center space-x-2"
+                >
+                  <span> Start from Scratch </span>
+                  <Image
+                    src={`${config.basePath}/arrow.svg`}
+                    width={20}
+                    height={20}
+                    alt="Arrow"
+                  />
+                </button>
+              </div>
+            )}
+            {showEditor && (
+              <div
+                id="grid-container"
+                className="absolute h-[60vh] w-full overflow-hidden flex flex-col items-center justify-center gap-4 z-1"
+              >
+                <Grid
+                  frames={frames}
+                  updateFramePosition={updateFramePosition}
+                  setSelectedFrameId={setSelectedFrameId}
+                  selectedFrameId={selectedFrameId}
+                />
+              </div>
+            )}
           </div>
         )}
       </main>

@@ -1,4 +1,4 @@
-import {  useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState } from "react";
 import { Rnd } from "react-rnd";
 import UploadPopup from "./UploadPopup";
 import GuideLines from "./GuideLines";
@@ -10,6 +10,7 @@ export default function Grid({
   frames,
   updateFramePosition,
   setSelectedFrameId,
+  selectedFrameId,
 }) {
   const gridRef = useRef(null);
   const [gridDimensions, setGridDimensions] = useState({ width: 0, height: 0 });
@@ -42,12 +43,12 @@ export default function Grid({
       const imgUrl = URL.createObjectURL(file);
       updateFramePosition(
         frameId,
-        undefined, 
-        undefined, 
-        undefined, 
         undefined,
-        imgUrl,   
-        file.name 
+        undefined,
+        undefined,
+        undefined,
+        imgUrl,
+        file.name
       );
     }
     setUploadingFrame(null);
@@ -67,12 +68,27 @@ export default function Grid({
   const validatePosition = (x, y, width, height) => {
     const snappedX = Math.round(x / GRID_SIZE) * GRID_SIZE;
     const snappedY = Math.round(y / GRID_SIZE) * GRID_SIZE;
-    const snappedWidth = Math.max(MIN_SIZE.width, Math.round(width / GRID_SIZE) * GRID_SIZE);
-    const snappedHeight = Math.max(MIN_SIZE.height, Math.round(height / GRID_SIZE) * GRID_SIZE);
+    const snappedWidth = Math.max(
+      MIN_SIZE.width,
+      Math.round(width / GRID_SIZE) * GRID_SIZE
+    );
+    const snappedHeight = Math.max(
+      MIN_SIZE.height,
+      Math.round(height / GRID_SIZE) * GRID_SIZE
+    );
 
     return {
-      x: Math.max(-centerOffset.x, Math.min(snappedX, gridDimensions.width - snappedWidth - centerOffset.x)),
-      y: Math.max(-centerOffset.y, Math.min(snappedY, gridDimensions.height - snappedHeight - centerOffset.y)),
+      x: Math.max(
+        -centerOffset.x,
+        Math.min(snappedX, gridDimensions.width - snappedWidth - centerOffset.x)
+      ),
+      y: Math.max(
+        -centerOffset.y,
+        Math.min(
+          snappedY,
+          gridDimensions.height - snappedHeight - centerOffset.y
+        )
+      ),
       width: snappedWidth,
       height: snappedHeight,
     };
@@ -81,6 +97,11 @@ export default function Grid({
   return (
     <div
       ref={gridRef}
+      onClick={(e) => {
+        if (e.target === e.currentTarget) {
+          setSelectedFrameId(null);
+        }
+      }}
       style={{
         position: "absolute",
         left: "50%",
@@ -99,11 +120,14 @@ export default function Grid({
       {frames.map((frame) => (
         <Rnd
           key={frame.id}
-
           size={{ width: frame.width, height: frame.height }}
           position={{
-            x: (activeFrame?.id === frame.id ? activeFrame.x : frame.x) + centerOffset.x,
-            y: (activeFrame?.id === frame.id ? activeFrame.y : frame.y) + centerOffset.y,
+            x:
+              (activeFrame?.id === frame.id ? activeFrame.x : frame.x) +
+              centerOffset.x,
+            y:
+              (activeFrame?.id === frame.id ? activeFrame.y : frame.y) +
+              centerOffset.y,
           }}
           bounds="parent"
           minWidth={MIN_SIZE.width}
@@ -127,23 +151,39 @@ export default function Grid({
             topRight: { width: "15px", height: "15px" },
             bottomRight: { width: "15px", height: "15px" },
             bottomLeft: { width: "15px", height: "15px" },
-            topLeft: { width: "15px", height: "15px" }}
-          }
+            topLeft: { width: "15px", height: "15px" },
+          }}
           onDragStart={() => setActiveFrame(frame)}
           onDrag={(e, { x, y }) => {
             const adjustedX = x - centerOffset.x;
             const adjustedY = y - centerOffset.y;
-            const validated = validatePosition(adjustedX, adjustedY, frame.width, frame.height);
+            const validated = validatePosition(
+              adjustedX,
+              adjustedY,
+              frame.width,
+              frame.height
+            );
             setActiveFrame({ id: frame.id, ...validated });
           }}
           onDragStop={(e, { x, y }) => {
             const adjustedX = x - centerOffset.x;
             const adjustedY = y - centerOffset.y;
-            const validated = validatePosition(adjustedX, adjustedY, frame.width, frame.height);
+            const validated = validatePosition(
+              adjustedX,
+              adjustedY,
+              frame.width,
+              frame.height
+            );
             const updatedFrame = { ...frame, ...validated };
 
             if (!isOverlapping(updatedFrame, frames)) {
-              updateFramePosition(frame.id, validated.x, validated.y, validated.width, validated.height);
+              updateFramePosition(
+                frame.id,
+                validated.x,
+                validated.y,
+                validated.width,
+                validated.height
+              );
             }
             setActiveFrame(null);
           }}
@@ -153,7 +193,12 @@ export default function Grid({
             const newHeight = parseInt(ref.style.height);
             const adjustedX = x - centerOffset.x;
             const adjustedY = y - centerOffset.y;
-            const validated = validatePosition(adjustedX, adjustedY, newWidth, newHeight);
+            const validated = validatePosition(
+              adjustedX,
+              adjustedY,
+              newWidth,
+              newHeight
+            );
             setActiveFrame({ id: frame.id, ...validated });
           }}
           onResizeStop={(e, direction, ref, delta, { x, y }) => {
@@ -161,17 +206,34 @@ export default function Grid({
             const newHeight = parseInt(ref.style.height);
             const adjustedX = x - centerOffset.x;
             const adjustedY = y - centerOffset.y;
-            const validated = validatePosition(adjustedX, adjustedY, newWidth, newHeight);
+            const validated = validatePosition(
+              adjustedX,
+              adjustedY,
+              newWidth,
+              newHeight
+            );
 
             if (!isOverlapping({ ...frame, ...validated }, frames)) {
-              updateFramePosition(frame.id, validated.x, validated.y, validated.width, validated.height);
+              updateFramePosition(
+                frame.id,
+                validated.x,
+                validated.y,
+                validated.width,
+                validated.height
+              );
             }
             setActiveFrame(null);
           }}
-          onMouseDown={() => setSelectedFrameId(frame.id)}
+          onMouseDown={(e) => {
+            e.stopPropagation();
+            setSelectedFrameId(frame.id);
+          }}
           style={{
             background: "white",
-            outline: "3px solid black",
+            outline:
+              selectedFrameId === frame.id
+                ? "3px solid var(--accent)"
+                : "3px solid black",
             padding: "5px",
             overflow: "hidden",
             zIndex: activeFrame?.id === frame.id ? 10 : 1,

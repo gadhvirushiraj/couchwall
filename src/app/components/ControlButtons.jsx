@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { downloadGridLayout } from '../utils/downloader';
+import { downloadGridLayout } from "../utils/downloader";
 import config from "../../../next.config.mjs";
 
 export default function ControlButtons({ addFrame }) {
@@ -38,32 +38,31 @@ export default function ControlButtons({ addFrame }) {
       {/* Expanded Menu */}
       {isExpanded && (
         <div className="mt-4 w-full flex flex-col gap-4 fixed top-[5rem] left-[2rem] z-50">
-        {/* Add Frame Button */}
-        <button
-          type="button"
-          onClick={() => handleButtonClick(addFrame)}
-          className="exp-button"
-        >
-          Add Frame
-        </button>
-      
-        {/* Download Layout Button */}
-        <button
-          type="button"
-          onClick={() => handleButtonClick(() => downloadGridLayout())}
-          className="exp-button"
-        >
-          Download Layout
-        </button>
-      
-        {/* Buy Me a Coffee Button */}
-        <a href="https://www.buymeacoffee.com/gadhvirushiraj">
-          <img
-            src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=gadhvirushiraj&button_colour=FFA500&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff"
-            className="max-w-[200px] hover:scale-105 transition-transform"
-          />
-        </a>
-      </div>      
+          {/* Add Frame Button */}
+          <button
+            type="button"
+            onClick={() => handleButtonClick(addFrame)}
+            className="exp-button"
+          >
+            Add Frame
+          </button>
+
+          {/* Download Layout Button */}
+          <button
+            type="button"
+            onClick={() => handleButtonClick(() => downloadGridLayout())}
+            className="exp-button"
+          >
+            Download Layout
+          </button>
+
+          {/* Buy Me a Coffee Button */}
+          <div className="max-w-[220px] hover:scale-105 transition-transform">
+            <a href="https://www.buymeacoffee.com/gadhvirushiraj">
+              <img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=gadhvirushiraj&button_colour=FFA500&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff" />
+            </a>
+          </div>
+        </div>
       )}
     </>
   );

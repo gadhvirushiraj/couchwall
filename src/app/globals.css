@@ -8,6 +8,10 @@
   --accent: #FFA500;  
 }
 
+*::-webkit-scrollbar {
+  display: none;
+}
+
 html,
 body {
   overflow: hidden;
@@ -62,14 +66,29 @@ img {
   justify-content: center;
   align-items: center;
   transition: opacity 0.3s, transform 0.3s;
-  max-width: 200px;
+  max-width: 220px;
   width: auto;
 }
 
-.home-button:hover, 
-.exp-button:hover {
+.grid-button {
+  padding: 10px 20px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-align: center;
+  border: none;
+  background-color: var(--accent);
+  color: black;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.3s, transform 0.3s;
+  width: 220px;
+}
+
+button:hover {
   transform: scale(1.05);
 }
+
 
 .guide-line {
   position: absolute;

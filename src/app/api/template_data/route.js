@@ -1,13 +1,12 @@
 import { NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
-import config from "../../../../next.config.mjs";
 
 export const dynamic = "force-static";
 
 export async function GET() {
   try {
-    const templatesDir = path.join(config.basePath, "template");
+    const templatesDir = path.join(process.cwd(), "public", "template");
     if (!fs.existsSync(templatesDir)) {
       return NextResponse.json(
         { error: "Templates directory not found" },

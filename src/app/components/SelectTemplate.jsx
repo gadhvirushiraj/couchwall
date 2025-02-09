@@ -30,7 +30,7 @@ export default function SelectTemplate({ onTemplateSelect }) {
       }
     };
     loadTemplates();
-  }, []);
+  }, [selectedOption]); // Add selectedOption as a dependency
 
   const processTemplates = (templates, selected) => {
     if (selected === "Number of Frame (All)") {

@@ -7,7 +7,7 @@ export const dynamic = "force-static";
 
 export async function GET() {
   try {
-    const templatesDir = path.join(config.basePath, "public", "template");
+    const templatesDir = path.join(config.basePath, "template");
     if (!fs.existsSync(templatesDir)) {
       return NextResponse.json(
         { error: "Templates directory not found" },

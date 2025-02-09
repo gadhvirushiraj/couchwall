@@ -1,0 +1,53 @@
+{
+    "frames": [
+      {
+        "x": -240,
+        "y": 90,
+        "width": 290,
+        "height": 110,
+        "fileName": null
+      },
+      {
+        "x": -110,
+        "y": -150,
+        "width": 100,
+        "height": 220,
+        "fileName": null
+      },
+      {
+        "x": 10,
+        "y": -110,
+        "width": 80,
+        "height": 80,
+        "fileName": null
+      },
+      {
+        "x": 70,
+        "y": 90,
+        "width": 150,
+        "height": 80,
+        "fileName": null
+      },
+      {
+        "x": -210,
+        "y": -110,
+        "width": 80,
+        "height": 80,
+        "fileName": null
+      },
+      {
+        "x": 10,
+        "y": -10,
+        "width": 200,
+        "height": 80,
+        "fileName": null
+      },
+      {
+        "x": -210,
+        "y": -10,
+        "width": 80,
+        "height": 80,
+        "fileName": null
+      }
+    ]
+  }

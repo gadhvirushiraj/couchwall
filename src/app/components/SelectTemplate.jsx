@@ -79,7 +79,7 @@ export default function SelectTemplate({ onTemplateSelect }) {
       </button>
       {showTemplates && (
         <div className="fixed inset-0 w-full h-full bg-black bg-opacity-20 backdrop-blur-sm p-20 flex justify-center items-center z-[1050]">
-          <div className="bg-black p-8 w-[70vw] relative shadow-2xl">
+          <div className="bg-black p-8 max-w-[70vw] relative shadow-2xl">
             {/* Filter Section */}
             <div className="flex gap-4 justify-start relative text-lg">
               {/* Dropdown Container */}
